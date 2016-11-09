@@ -3,5 +3,5 @@ class Contato < ApplicationRecord
   validates :nome, presence: true
   validates :email, uniqueness: true, presence: true
   validates :idade, presence: true
-  validates :contato, presence: true
+  validates :cargo, presence: true
 end
