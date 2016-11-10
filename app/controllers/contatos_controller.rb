@@ -6,7 +6,6 @@ class ContatosController < ApplicationController
     def index
 
         @contatos = Contato.all
-
         if params[:f_nome].present? ||
             params[:f_email].present? ||
             params[:f_cargo].present? ||

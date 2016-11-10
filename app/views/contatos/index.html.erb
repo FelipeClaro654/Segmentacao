@@ -4,25 +4,41 @@
 
 <%= form_tag contatos_path, :method => 'get' do %>
 <p>
-    <%= text_field_tag :f_nome, params[:f_nome] %>
     <%= select_tag :f_tipo_nome,
         options_for_select(["Igual a", "Contém", "Começa com", "Termina com"]),
         :include_blank => false %>
-
-    <%= text_field_tag :f_email, params[:f_email] %>
+    <%= text_field_tag :f_nome, params[:f_nome] %>
+    <%= select_tag :f_clause_nome,
+        options_for_select([["e", " and "], ["ou", " or "]]),
+        :include_blank => false %>
+<br>
     <%= select_tag :f_tipo_email,
         options_for_select(["Igual a", "Contém", "Começa com", "Termina com"]),
         :include_blank => false %>
-
-    <%= text_field_tag :f_idade, params[:f_idade] %>
+    <%= text_field_tag :f_email, params[:f_email] %>
+    <%= select_tag :f_clause_email,
+        options_for_select([["e", " and "], ["ou", " or "]]),
+        :include_blank => false %>
+<br>
     <%= select_tag :f_tipo_idade,
         options_for_select(["=", "<", "<=", ">", ">="]),
         :include_blank => false %>
-        
-    <%= text_field_tag :f_cargo, params[:f_cargo] %>
+    <%= text_field_tag :f_idade, params[:f_idade] %>
+    <%= select_tag :f_clause_idade,
+        options_for_select([["e", " and "], ["ou", " or "]]),
+        :include_blank => false %>
+<br>
     <%= select_tag :f_tipo_cargo,
         options_for_select(["Igual a", "Contém", "Começa com", "Termina com"]),
         :include_blank => false %>
+    <%= text_field_tag :f_cargo, params[:f_cargo] %>
+    <%= select_tag :f_clause_cargo,
+        options_for_select([["e", " and "], ["ou", " or "]]),
+        :include_blank => false %>
+<br>
+<%= select_tag :f_estado,
+    options_from_collection_for_select(Estado.all, 'id', 'nome'),
+    :include_blank => true, :prompt => "Selecione o Estado" %>
     <%= submit_tag "Segmentar", :name => nil %>
 </p>
 <% end %>
