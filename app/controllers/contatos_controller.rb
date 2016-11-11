@@ -4,17 +4,16 @@ class ContatosController < ApplicationController
     # GET /contatos
     # GET /contatos.json
     def index
-
-        @contatos = Contato.all
+        @historico_segmentacao = HistoricoSegmentacao.all
         if params[:f_nome].present? ||
             params[:f_email].present? ||
             params[:f_cargo].present? ||
-            params[:f_idade].present?
+            params[:f_idade].present? ||
+            params[:f_estado].present?
             @contatos = Contato.search(params)
         else
             @contatos = Contato.all
         end
-
     end
 
     # GET /contatos/1

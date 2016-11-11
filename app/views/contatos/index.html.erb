@@ -4,6 +4,7 @@
 
 <%= form_tag contatos_path, :method => 'get' do %>
 <p>
+    <label>Nome</label>
     <%= select_tag :f_tipo_nome,
         options_for_select(["Igual a", "Contém", "Começa com", "Termina com"]),
         :include_blank => false %>
@@ -12,6 +13,7 @@
         options_for_select([["e", " and "], ["ou", " or "]]),
         :include_blank => false %>
 <br>
+    <label>E-mail</label>
     <%= select_tag :f_tipo_email,
         options_for_select(["Igual a", "Contém", "Começa com", "Termina com"]),
         :include_blank => false %>
@@ -20,6 +22,7 @@
         options_for_select([["e", " and "], ["ou", " or "]]),
         :include_blank => false %>
 <br>
+    <label>Idade</label>
     <%= select_tag :f_tipo_idade,
         options_for_select(["=", "<", "<=", ">", ">="]),
         :include_blank => false %>
@@ -28,6 +31,7 @@
         options_for_select([["e", " and "], ["ou", " or "]]),
         :include_blank => false %>
 <br>
+    <label>Cargo</label>
     <%= select_tag :f_tipo_cargo,
         options_for_select(["Igual a", "Contém", "Começa com", "Termina com"]),
         :include_blank => false %>
@@ -36,12 +40,83 @@
         options_for_select([["e", " and "], ["ou", " or "]]),
         :include_blank => false %>
 <br>
-<%= select_tag :f_estado,
-    options_from_collection_for_select(Estado.all, 'id', 'nome'),
-    :include_blank => true, :prompt => "Selecione o Estado" %>
+    <label>Estado</label>
+    <%= select_tag :f_estado,
+        options_from_collection_for_select(Estado.all, 'id', 'nome'),
+        :prompt => "Selecione o Estado" %>
     <%= submit_tag "Segmentar", :name => nil %>
 </p>
 <% end %>
+
+<div class="historico-segmentacao">
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>Nome</th>
+                <th></th>
+                <th></th>
+                <th>E-mail</th>
+                <th></th>
+                <th></th>
+                <th>Idade</th>
+                <th></th>
+                <th></th>
+                <th>Cargo</th>
+                <th></th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @historico_segmentacao.each do |historico| %>
+                <tr class="item-segmentacao" data-id="<%=historico.id%>">
+                    <td>
+                        <%= historico.tipo_nome %>
+                    </td>
+                    <td>
+                        <%= historico.nome %>
+                    </td>
+                    <td>
+                        <%= historico.clause_nome %>
+                    </td>
+                    <td>
+                        <%= historico.tipo_email %>
+                    </td>
+                    <td>
+                        <%= historico.email %>
+                    </td>
+                    <td>
+                        <%= historico.clause_email %>
+                    </td>
+                    <td>
+                        <%= historico.tipo_idade %>
+                    </td>
+                    <td>
+                        <%= historico.idade %>
+                    </td>
+                    <td>
+                        <%= historico.tipo_cargo %>
+                    </td>
+                    <td>
+                        <%= historico.cargo %>
+                    </td>
+                    <td>
+                        <%= historico.clause_cargo %>
+                    </td>
+                    <td>
+                        <% if historico.estado_id.present? %>
+                            <%= historico.estado %>
+                        <% else %>
+                            -
+                        <% end %>
+                    </td>
+                </tr>
+            <% end %>
+
+        </tbody>
+    </table>
+
+</div>
 
 <table>
     <thead>
@@ -70,7 +145,7 @@
             <% end %>
         <% else %>
             <tr>
-                <td>There are no posts containing the term(s) <%= params[:search] %>.</td>
+                <td>Nenhum resultado encontrado.</td>
             </tr>
         <% end %>
     </tbody>

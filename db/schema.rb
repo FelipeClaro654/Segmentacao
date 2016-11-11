@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161109200226) do
+ActiveRecord::Schema.define(version: 20161110232320) do
 
   create_table "contatos", force: :cascade do |t|
     t.string   "nome"
@@ -28,6 +28,25 @@ ActiveRecord::Schema.define(version: 20161109200226) do
     t.string   "sigla"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "historico_segmentacaos", force: :cascade do |t|
+    t.string   "nome"
+    t.string   "tipo_nome"
+    t.string   "clause_nome"
+    t.string   "email"
+    t.string   "tipo_email"
+    t.string   "clause_email"
+    t.integer  "idade"
+    t.string   "tipo_idade"
+    t.string   "clause_idade"
+    t.string   "cargo"
+    t.string   "tipo_cargo"
+    t.string   "clause_cargo"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "estado_id"
+    t.index ["estado_id"], name: "index_historico_segmentacaos_on_estado_id"
   end
 
 end
