@@ -10,6 +10,7 @@ class ContatosController < ApplicationController
             params[:f_cargo].present? ||
             params[:f_idade].present? ||
             params[:f_estado].present?
+
             @contatos = Contato.search(params)
         else
             @contatos = Contato.all

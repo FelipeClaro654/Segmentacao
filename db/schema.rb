@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161110232320) do
+ActiveRecord::Schema.define(version: 20161110223746) do
 
   create_table "contatos", force: :cascade do |t|
     t.string   "nome"
@@ -43,10 +43,9 @@ ActiveRecord::Schema.define(version: 20161110232320) do
     t.string   "cargo"
     t.string   "tipo_cargo"
     t.string   "clause_cargo"
+    t.string   "estado"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
-    t.integer  "estado_id"
-    t.index ["estado_id"], name: "index_historico_segmentacaos_on_estado_id"
   end
 
 end

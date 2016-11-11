@@ -13,7 +13,7 @@
                 <%= text_field_tag :f_nome, params[:f_nome] %>
                 <%= select_tag :f_clause_nome,
                     options_for_select([["e", " and "], ["ou", " or "]]),
-                    :include_blank => false %>
+                    :include_blank => false, :data => {:input => 'f_nome'} %>
             <br>
                 <label>E-mail</label>
                 <%= select_tag :f_tipo_email,
@@ -22,7 +22,7 @@
                 <%= text_field_tag :f_email, params[:f_email] %>
                 <%= select_tag :f_clause_email,
                     options_for_select([["e", " and "], ["ou", " or "]]),
-                    :include_blank => false %>
+                    :include_blank => false, :data => {:input => 'f_email'} %>
             <br>
                 <label>Idade</label>
                 <%= text_field_tag :f_idade, params[:f_idade] %>
@@ -31,7 +31,7 @@
                     :include_blank => false %>
                 <%= select_tag :f_clause_idade,
                     options_for_select([["e", " and "], ["ou", " or "]]),
-                    :include_blank => false %>
+                    :include_blank => false, :data => {:input => 'f_idade'} %>
             <br>
                 <label>Cargo</label>
                 <%= select_tag :f_tipo_cargo,
@@ -40,14 +40,16 @@
                 <%= text_field_tag :f_cargo, params[:f_cargo] %>
                 <%= select_tag :f_clause_cargo,
                     options_for_select([["e", " and "], ["ou", " or "]]),
-                    :include_blank => false %>
+                    :include_blank => false, :data => {:input => 'f_cargo'} %>
             <br>
                 <label>Estado</label>
                 <%= select_tag :f_estado,
                     options_from_collection_for_select(Estado.all, 'id', 'sigla'),
                     :prompt => "Selecione o Estado" %>
-                <%= submit_tag "Editar Segmentação", :name => nil, :class => "hidden" %>
-                <%= submit_tag "Nova Segmentação", :name => nil %>
+                <%= button_tag "Nova Segmentação", :name => nil,
+                    :id => "nova_segmentacao", :type => "button" %>
+                <%= button_tag "Editar Segmentação", :name => nil,
+                    :id => "editar_segmentacao", :class => "hidden" %>
                 <span id="remove_id_segmentacao" class="glyphicon glyphicon-trash" aria-hidden="true" ></span>
             </p>
             <%= hidden_field_tag :historico_id %>
@@ -144,9 +146,9 @@
                                       -
                                   <% end %>
                               </td>
-                              <td data-estado="<%=historico.estado_id%>">
-                                  <% if historico.estado_id.present? %>
-                                      <%= historico.estado.nome %>
+                              <td data-estado="<%=historico.estado%>">
+                                  <% if historico.estado.present? %>
+                                      <%= historico.estado %>
                                   <% else %>
                                       -
                                   <% end %>

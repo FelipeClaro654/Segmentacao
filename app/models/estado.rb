@@ -1,3 +1,3 @@
 class Estado < ApplicationRecord
-    has_many :historico_segmentacao
+    has_many :contatos
 end

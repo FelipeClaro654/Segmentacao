@@ -27,7 +27,7 @@ class Contato < ApplicationRecord
             params[:f_clause_nome] = ""
         end
 
-        nome += params[:f_clause_nome]
+        params[:f_clause_nome].nil? ? nome += "" : nome += params[:f_clause_nome]
 
         if params[:f_email].present?
             case params[:f_tipo_email]
@@ -44,7 +44,7 @@ class Contato < ApplicationRecord
             params[:f_clause_email] = ""
         end
 
-        email += params[:f_clause_email]
+        params[:f_clause_email].nil? ? email += "" : email += params[:f_clause_email]
 
         if params[:f_cargo].present?
 
@@ -62,10 +62,10 @@ class Contato < ApplicationRecord
             params[:f_clause_cargo] = ""
         end
 
-        cargo += params[:f_clause_cargo]
+        params[:f_clause_cargo].nil? ? cargo += "" : cargo += params[:f_clause_cargo]
+
 
         if params[:f_idade].present?
-
             case params[:f_tipo_idade]
             when "="
                 idade = " idade = #{params[:f_idade]}"
@@ -80,15 +80,25 @@ class Contato < ApplicationRecord
                 idade = " idade >= #{params[:f_idade]}"
             end
         else
-            params[:f_idade_cargo] = ""
+            params[:f_clause_idade] = ""
         end
+
+        params[:f_clause_idade].nil? ? idade += "" : idade += params[:f_clause_idade]
 
         if params[:f_estado].present?
-            idade += params[:f_clause_idade] if idade.present?
             estado = "estado_id = #{params[:f_idade]}"
         end
-        segmentacao = nome + email + cargo + idade + estado
 
+        segmentacao = nome + email + cargo + idade + estado
+        if params[:historico_id].blank?
+            salva_segmentacao(params)
+        else
+            editar_segmentacao(params)
+        end
+        where(segmentacao)
+    end
+
+    def self.salva_segmentacao(params)
         @historico_segmentacao = HistoricoSegmentacao.new(
                                                             nome: params[:f_nome],
                                                             tipo_nome: params[:f_tipo_nome],
@@ -102,9 +112,28 @@ class Contato < ApplicationRecord
                                                             cargo: params[:f_cargo],
                                                             tipo_cargo: params[:f_tipo_cargo],
                                                             clause_cargo: params[:f_clause_cargo],
-                                                            estado_id: params[:f_estado]
+                                                            estado: params[:f_estado]
                                                         )
         @historico_segmentacao.save
-        where(segmentacao)
+    end
+
+    def self.editar_segmentacao(params)
+        @edicao_historico = HistoricoSegmentacao.find(params[:historico_id])
+        @edicao_historico.update_attributes(
+                                    nome: params[:f_nome],
+                                    tipo_nome: params[:f_tipo_nome],
+                                    clause_nome: params[:f_clause_nome],
+                                    email: params[:f_email],
+                                    tipo_email: params[:f_tipo_email],
+                                    clause_email: params[:f_clause_email],
+                                    idade: params[:f_idade],
+                                    tipo_idade: params[:f_tipo_idade],
+                                    clause_idade: params[:f_clause_idade],
+                                    cargo: params[:f_cargo],
+                                    tipo_cargo: params[:f_tipo_cargo],
+                                    clause_cargo: params[:f_clause_cargo],
+                                    estado: params[:f_estado]
+                                    )
+        @edicao_historico.save
     end
 end

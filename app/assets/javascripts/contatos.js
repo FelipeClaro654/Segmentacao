@@ -1,4 +1,20 @@
 $(function () {
+
+    Contatos ={
+        checar_ultimo_preenchido: function () {
+            var inputs = [];
+
+            $.each($("p input"), function(){
+                if(this.value != ""){
+                    inputs.push(this);
+                }
+            });
+
+            var input_id = $(inputs[inputs.length-1])[0].id;
+            $("[data-input='"+input_id+"']").val("");
+        }
+    }
+
     $(".item-segmentacao").click(function() {
         $(".item-segmentacao.bg-info").removeClass('bg-info');
         var item = $(this);
@@ -17,6 +33,8 @@ $(function () {
         $("#f_estado").val(item.find("[data-estado]").data("estado"));
         item.addClass('bg-info');
         $("#historico_id").val(item.data("id"));
+
+        $("#editar_segmentacao").removeClass('hidden')
     });
 
     $("#remove_id_segmentacao").click(function () {
@@ -27,7 +45,20 @@ $(function () {
             $(this).find("option:first").prop("selected", true)
         })
 
+        $("#editar_segmentacao").addClass('hidden');
         $("#segmentacao_form input").val("");
+    });
 
+    $("#nova_segmentacao").click(function (e) {
+        e.preventDefault();
+        $("#historico_id").val("");
+        Contatos.checar_ultimo_preenchido();
+        $("#segmentacao_form").submit();
+    });
+
+    $("#editar_segmentacao").click(function (e) {
+        e.preventDefault();
+        Contatos.checar_ultimo_preenchido();
+        $("#segmentacao_form").submit();
     });
 });

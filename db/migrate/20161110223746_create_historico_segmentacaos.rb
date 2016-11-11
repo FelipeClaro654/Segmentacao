@@ -13,7 +13,7 @@ class CreateHistoricoSegmentacaos < ActiveRecord::Migration[5.0]
       t.string :cargo
       t.string :tipo_cargo
       t.string :clause_cargo
-
+      t.string :estado
       t.timestamps
     end
   end
