@@ -5,16 +5,7 @@ class ContatosController < ApplicationController
     # GET /contatos.json
     def index
         @historico_segmentacao = HistoricoSegmentacao.all.order(updated_at: :desc)
-        if params[:f_nome].present? ||
-            params[:f_email].present? ||
-            params[:f_cargo].present? ||
-            params[:f_idade].present? ||
-            params[:f_estado].present?
-
-            @contatos = Contato.search(params)
-        else
-            @contatos = Contato.all
-        end
+        call_contatos(params)
     end
 
     # GET /contatos/1
@@ -29,6 +20,28 @@ class ContatosController < ApplicationController
 
     # GET /contatos/1/edit
     def edit
+    end
+
+    def render_lista
+        call_contatos(params)
+        render partial: "list", locals:{contatos: @contatos}
+    end
+
+    def call_contatos(params)
+        if params[:f_nome].present? ||
+            params[:f_email].present? ||
+            params[:f_cargo].present? ||
+            params[:f_idade].present? ||
+            params[:f_estado].present?
+
+            @contatos = Contato.search(params)
+            @historico_id = ""
+            if params[:historico_id].present?
+                @historico_id = params[:historico_id]
+            end
+        else
+            @contatos = Contato.all
+        end
     end
 
     # POST /contatos

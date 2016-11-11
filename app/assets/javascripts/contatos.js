@@ -10,8 +10,43 @@ $(function () {
                 }
             });
 
-            var input_id = $(inputs[inputs.length-1])[0].id;
-            $("[data-input='"+input_id+"']").val("");
+            if(inputs.length > 0){
+                var input_id = $(inputs[inputs.length-1])[0].id;
+                $("[data-input='"+input_id+"']").val("");
+                return true;
+            }
+            return false;
+        },
+        render_lista: function () {
+                setInterval(function () {
+
+                if(!Contatos.checar_ultimo_preenchido()){
+                    return false;
+                }
+
+                $.ajax({
+                    url: '/contatos/render_lista',
+                    data: {
+                        f_tipo_nome: $("#f_tipo_nome").val(),
+                        f_nome: $("#f_nome").val(),
+                        f_clause_nome: $("#f_clause_nome").val(),
+                        f_tipo_email: $("#f_tipo_email").val(),
+                        f_email: $("#f_email").val(),
+                        f_clause_email: $("#f_clause_email").val(),
+                        f_tipo_idade: $("#f_tipo_idade").val(),
+                        f_idade: $("#f_idade").val(),
+                        f_clause_idade: $("#f_clause_idade").val(),
+                        f_tipo_cargo: $("#f_tipo_cargo").val(),
+                        f_cargo: $("#f_cargo").val(),
+                        f_clause_cargo: $("#f_clause_cargo").val(),
+                        f_estado: $("#f_estado").val(),
+                        no_saving: true
+                    }
+                })
+                .done(function(result) {
+                    $("#lista_contatos").html(result);
+                })
+            }, 1000);
         }
     }
 
@@ -52,13 +87,22 @@ $(function () {
     $(document).on("click","#nova_segmentacao", function (e) {
         e.preventDefault();
         $("#historico_id").val("");
-        Contatos.checar_ultimo_preenchido();
-        $("#segmentacao_form").submit();
+        debugger;
+        if(Contatos.checar_ultimo_preenchido()){
+            $("#segmentacao_form").submit();
+        }
     });
 
     $(document).on("click", "#editar_segmentacao", function (e) {
         e.preventDefault();
-        Contatos.checar_ultimo_preenchido();
-        $("#segmentacao_form").submit();
+        if(Contatos.checar_ultimo_preenchido()){
+            $("#segmentacao_form").submit();
+        }
     });
+});
+
+$(document).on('ready page:load', function() {
+    $(".item-segmentacao.bg-info").trigger('click');
+
+    Contatos.render_lista();
 });

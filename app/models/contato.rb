@@ -19,9 +19,9 @@ class Contato < ApplicationRecord
             when "Contém"
                 nome = "nome LIKE '%#{params[:f_nome]}%'"
             when "Começa com"
-                nome = "nome LIKE '%#{params[:f_nome]}'"
-            else
                 nome = "nome LIKE '#{params[:f_nome]}%'"
+            else
+                nome = "nome LIKE '%#{params[:f_nome]}'"
             end
         else
             params[:f_clause_nome] = ""
@@ -36,9 +36,9 @@ class Contato < ApplicationRecord
             when "Contém"
                 email = " email LIKE '%#{params[:f_email]}%'"
             when "Começa com"
-                email = " email LIKE '%#{params[:f_email]}'"
-            else
                 email = " email LIKE '#{params[:f_email]}%'"
+            else
+                email = " email LIKE '%#{params[:f_email]}'"
             end
         else
             params[:f_clause_email] = ""
@@ -54,9 +54,9 @@ class Contato < ApplicationRecord
             when "Contém"
                 cargo = " cargo LIKE '%#{params[:f_cargo]}%'"
             when "Começa com"
-                cargo = " cargo LIKE '%#{params[:f_cargo]}'"
-            else
                 cargo = " cargo LIKE '#{params[:f_cargo]}%'"
+            else
+                cargo = " cargo LIKE '%#{params[:f_cargo]}'"
             end
         else
             params[:f_clause_cargo] = ""
@@ -90,6 +90,7 @@ class Contato < ApplicationRecord
         end
 
         segmentacao = nome + email + cargo + idade + estado
+        byebug
         if params[:historico_id].blank?
             salva_segmentacao(params)
         else

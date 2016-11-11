@@ -48,11 +48,19 @@
                     :prompt => "Selecione o Estado" %>
                 <%= button_tag "Nova Segmentação", :name => nil,
                     :id => "nova_segmentacao", :type => "button" %>
+
+                    <%
+                        @editar_hidden = "hidden"
+                        unless @historico_id.blank?
+                            @editar_hidden = ""
+                        end
+                    %>
+
                 <%= button_tag "Editar Segmentação", :name => nil,
-                    :id => "editar_segmentacao", :class => "hidden" %>
+                    :id => "editar_segmentacao", :class => @editar_hidden %>
                 <span id="remove_id_segmentacao" class="glyphicon glyphicon-trash" aria-hidden="true" ></span>
             </p>
-            <%= hidden_field_tag :historico_id %>
+            <%= hidden_field_tag :historico_id, @historico_id %>
         <% end %>
     </div>
     <div class="col-lg-7">
@@ -81,7 +89,13 @@
                   </thead>
                   <tbody>
                       <% @historico_segmentacao.each do |historico| %>
-                          <tr class="item-segmentacao" data-id="<%=historico.id%>">
+                        <%
+                            @klass = ""
+                            if historico.id == @historico_id.to_i
+                                @klass = "bg-info"
+                            end
+                        %>
+                          <tr class="item-segmentacao <%=@klass%>" data-id="<%=historico.id%>">
                               <td data-tipo-nome="<%=historico.tipo_nome%>">
                                   <%= historico.tipo_nome %>
                               </td>
@@ -116,11 +130,11 @@
                                       -
                                   <% end %>
                               </td>
-                              <td data-tipo-idade="<%=historico.tipo_idade%>">
-                                  (<%= historico.tipo_idade %>)
+                              <td data-tipo-idade="<%=historico.idade.nil? ? "" : historico.tipo_idade %>">
+                                  <%=historico.idade.nil? ? "-" : historico.tipo_idade %>
                               </td>
-                              <td data-idade="<%=historico.idade%>">
-                                  <%= historico.idade %>
+                              <td data-idade="<%=historico.idade.nil? ? "" : historico.tipo_idade %>">
+                                 <%=historico.idade.nil? ? "-" : historico.tipo_idade %>
                               </td>
                               <td data-clause-idade="<%=historico.clause_idade%>">
                                   <% if historico.clause_idade == " and " %>
@@ -162,43 +176,8 @@
     </div>
 </div>
 
-
-
-<div class="row">
-    <div class="col-lg-7">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Email</th>
-                    <th>Idade</th>
-                    <th>Estado</th>
-                    <th>Cargo</th>
-                    <th colspan="3"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <% if @contatos.present? %>
-                    <% @contatos.each do |contato| %>
-                        <tr>
-                            <td><%= contato.nome %></td>
-                            <td><%= contato.email %></td>
-                            <td><%= contato.idade %></td>
-                            <td><%= contato.estado.sigla %></td>
-                            <td><%= contato.cargo %></td>
-                            <td><%= link_to 'Show', contato %></td>
-                            <td><%= link_to 'Edit', edit_contato_path(contato) %></td>
-                            <td><%= link_to 'Destroy', contato, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-                        </tr>
-                    <% end %>
-                <% else %>
-                    <tr>
-                        <td>Nenhum resultado encontrado.</td>
-                    </tr>
-                <% end %>
-            </tbody>
-        </table>
-    </div>
+<div id="lista_contatos">
+    <%= render partial: "list" %>
 </div>
 
 <br>
