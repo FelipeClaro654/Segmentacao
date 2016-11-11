@@ -4,7 +4,7 @@ class ContatosController < ApplicationController
     # GET /contatos
     # GET /contatos.json
     def index
-        @historico_segmentacao = HistoricoSegmentacao.all
+        @historico_segmentacao = HistoricoSegmentacao.all.order(updated_at: :desc)
         if params[:f_nome].present? ||
             params[:f_email].present? ||
             params[:f_cargo].present? ||

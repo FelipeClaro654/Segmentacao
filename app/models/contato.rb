@@ -27,55 +27,57 @@ class Contato < ApplicationRecord
             params[:f_clause_nome] = ""
         end
 
-        if params[:f_email].present?
-            nome += params[:f_clause_nome] if nome.present?
+        nome += params[:f_clause_nome]
 
+        if params[:f_email].present?
             case params[:f_tipo_email]
             when "Igual a"
-                email = "email = '#{params[:f_email]}'"
+                email = " email = '#{params[:f_email]}'"
             when "Contém"
-                email = "email LIKE '%#{params[:f_email]}%'"
+                email = " email LIKE '%#{params[:f_email]}%'"
             when "Começa com"
-                email = "email LIKE '%#{params[:f_email]}'"
+                email = " email LIKE '%#{params[:f_email]}'"
             else
-                email = "email LIKE '#{params[:f_email]}%'"
+                email = " email LIKE '#{params[:f_email]}%'"
             end
         else
             params[:f_clause_email] = ""
         end
 
+        email += params[:f_clause_email]
+
         if params[:f_cargo].present?
-            email += params[:f_clause_email] if email.present?
 
             case params[:f_tipo_cargo]
             when "Igual a"
-                cargo = "cargo = '#{params[:f_cargo]}'"
+                cargo = " cargo = '#{params[:f_cargo]}'"
             when "Contém"
-                cargo = "cargo LIKE '%#{params[:f_cargo]}%'"
+                cargo = " cargo LIKE '%#{params[:f_cargo]}%'"
             when "Começa com"
-                cargo = "cargo LIKE '%#{params[:f_cargo]}'"
+                cargo = " cargo LIKE '%#{params[:f_cargo]}'"
             else
-                cargo = "cargo LIKE '#{params[:f_cargo]}%'"
+                cargo = " cargo LIKE '#{params[:f_cargo]}%'"
             end
         else
             params[:f_clause_cargo] = ""
         end
 
+        cargo += params[:f_clause_cargo]
+
         if params[:f_idade].present?
-            cargo += params[:f_clause_cargo] if cargo.present?
 
             case params[:f_tipo_idade]
             when "="
-                idade = "idade = #{params[:f_idade]}"
+                idade = " idade = #{params[:f_idade]}"
             when "<"
-                idade = "idade < #{params[:f_idade]}"
+                idade = " idade < #{params[:f_idade]}"
 
             when "<="
-                idade = "idade <= #{params[:f_idade]}"
+                idade = " idade <= #{params[:f_idade]}"
             when ">"
-                idade = "idade > #{params[:f_idade]}"
+                idade = " idade > #{params[:f_idade]}"
             else
-                idade = "idade >= #{params[:f_idade]}"
+                idade = " idade >= #{params[:f_idade]}"
             end
         else
             params[:f_idade_cargo] = ""
@@ -86,6 +88,7 @@ class Contato < ApplicationRecord
             estado = "estado_id = #{params[:f_idade]}"
         end
         segmentacao = nome + email + cargo + idade + estado
+
         @historico_segmentacao = HistoricoSegmentacao.new(
                                                             nome: params[:f_nome],
                                                             tipo_nome: params[:f_tipo_nome],

@@ -1,3 +1,3 @@
 class Estado < ApplicationRecord
-    belongs_to :historico_segmentacao
+    has_many :historico_segmentacao
 end
