@@ -15,7 +15,7 @@ $(function () {
         }
     }
 
-    $(".item-segmentacao").click(function() {
+    $(document).on("click", ".item-segmentacao", function() {
         $(".item-segmentacao.bg-info").removeClass('bg-info');
         var item = $(this);
         $("#f_tipo_nome").val(item.find("[data-tipo-nome]").data("tipo-nome"));
@@ -37,7 +37,7 @@ $(function () {
         $("#editar_segmentacao").removeClass('hidden')
     });
 
-    $("#remove_id_segmentacao").click(function () {
+    $(document).on("click", "#remove_id_segmentacao", function () {
         $(".item-segmentacao.bg-info").removeClass('bg-info');
         $("#historico_id").val("");
 
@@ -49,14 +49,14 @@ $(function () {
         $("#segmentacao_form input").val("");
     });
 
-    $("#nova_segmentacao").click(function (e) {
+    $(document).on("click","#nova_segmentacao", function (e) {
         e.preventDefault();
         $("#historico_id").val("");
         Contatos.checar_ultimo_preenchido();
         $("#segmentacao_form").submit();
     });
 
-    $("#editar_segmentacao").click(function (e) {
+    $(document).on("click", "#editar_segmentacao", function (e) {
         e.preventDefault();
         Contatos.checar_ultimo_preenchido();
         $("#segmentacao_form").submit();
