@@ -23,7 +23,8 @@ class ContatosController < ApplicationController
     end
 
     def render_lista
-        call_contatos(params)
+        @historico = HistoricoSegmentacao.find(params[:historico_id])
+        @contatos = Contato.atualiza_lista(@historico)
         render partial: "list", locals:{contatos: @contatos}
     end
 

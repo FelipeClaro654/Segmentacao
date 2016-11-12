@@ -6,6 +6,23 @@ class Contato < ApplicationRecord
     validates :cargo, presence: true
 
     def self.search(params)
+        query = retorna_query(params)
+
+        if params[:historico_id].blank?
+            salva_segmentacao(params)
+        else
+            editar_segmentacao(params)
+        end
+
+        where(query)
+    end
+
+    def self.atualiza_lista(params)
+        query = retorna_query(params)
+        where(query)
+    end
+
+    def self.retorna_query(params)
         nome = ""
         email = ""
         idade = ""
@@ -84,34 +101,27 @@ class Contato < ApplicationRecord
         params[:f_clause_cargo].nil? ? cargo += "" : cargo += params[:f_clause_cargo]
 
         if params[:f_estado].present?
-            estado = "estado_id = #{params[:f_idade]}"
+            estado = "estado_id = #{params[:f_estado]}"
         end
 
         segmentacao = nome + email + idade + cargo + estado
-        byebug
-        if params[:historico_id].blank?
-            salva_segmentacao(params)
-        else
-            editar_segmentacao(params)
-        end
-        where(segmentacao)
     end
 
     def self.salva_segmentacao(params)
         @historico_segmentacao = HistoricoSegmentacao.new(
-                                                            nome: params[:f_nome],
-                                                            tipo_nome: params[:f_tipo_nome],
-                                                            clause_nome: params[:f_clause_nome],
-                                                            email: params[:f_email],
-                                                            tipo_email: params[:f_tipo_email],
-                                                            clause_email: params[:f_clause_email],
-                                                            idade: params[:f_idade],
-                                                            tipo_idade: params[:f_tipo_idade],
-                                                            clause_idade: params[:f_clause_idade],
-                                                            cargo: params[:f_cargo],
-                                                            tipo_cargo: params[:f_tipo_cargo],
-                                                            clause_cargo: params[:f_clause_cargo],
-                                                            estado: params[:f_estado]
+                                                            f_nome: params[:f_nome],
+                                                            f_tipo_nome: params[:f_tipo_nome],
+                                                            f_clause_nome: params[:f_clause_nome],
+                                                            f_email: params[:f_email],
+                                                            f_tipo_email: params[:f_tipo_email],
+                                                            f_clause_email: params[:f_clause_email],
+                                                            f_idade: params[:f_idade],
+                                                            f_tipo_idade: params[:f_tipo_idade],
+                                                            f_clause_idade: params[:f_clause_idade],
+                                                            f_cargo: params[:f_cargo],
+                                                            f_tipo_cargo: params[:f_tipo_cargo],
+                                                            f_clause_cargo: params[:f_clause_cargo],
+                                                            f_estado: params[:f_estado]
                                                         )
         @historico_segmentacao.save
         params[:historico_id] = @historico_segmentacao.id
@@ -120,19 +130,19 @@ class Contato < ApplicationRecord
     def self.editar_segmentacao(params)
         @edicao_historico = HistoricoSegmentacao.find(params[:historico_id])
         @edicao_historico.update_attributes(
-                                    nome: params[:f_nome],
-                                    tipo_nome: params[:f_tipo_nome],
-                                    clause_nome: params[:f_clause_nome],
-                                    email: params[:f_email],
-                                    tipo_email: params[:f_tipo_email],
-                                    clause_email: params[:f_clause_email],
-                                    idade: params[:f_idade],
-                                    tipo_idade: params[:f_tipo_idade],
-                                    clause_idade: params[:f_clause_idade],
-                                    cargo: params[:f_cargo],
-                                    tipo_cargo: params[:f_tipo_cargo],
-                                    clause_cargo: params[:f_clause_cargo],
-                                    estado: params[:f_estado]
+                                    f_nome: params[:f_nome],
+                                    f_tipo_nome: params[:f_tipo_nome],
+                                    f_clause_nome: params[:f_clause_nome],
+                                    f_email: params[:f_email],
+                                    f_tipo_email: params[:f_tipo_email],
+                                    f_clause_email: params[:f_clause_email],
+                                    f_idade: params[:f_idade],
+                                    f_tipo_idade: params[:f_tipo_idade],
+                                    f_clause_idade: params[:f_clause_idade],
+                                    f_cargo: params[:f_cargo],
+                                    f_tipo_cargo: params[:f_tipo_cargo],
+                                    f_clause_cargo: params[:f_clause_cargo],
+                                    f_estado: params[:f_estado]
                                     )
         @edicao_historico.save
     end

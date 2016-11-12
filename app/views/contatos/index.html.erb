@@ -1,67 +1,144 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Contatos</h1>
-
 <div class="row">
     <div class="col-lg-5">
-        <%= form_tag contatos_path, :method => 'get', :id => "segmentacao_form" do %>
-            <p>
-                <label>Nome</label>
-                <%= select_tag :f_tipo_nome,
-                    options_for_select(["Igual a", "Contém", "Começa com", "Termina com"]),
-                    :include_blank => false %>
-                <%= text_field_tag :f_nome, params[:f_nome] %>
-                <%= select_tag :f_clause_nome,
-                    options_for_select([["e", " and "], ["ou", " or "]]),
-                    :include_blank => false, :data => {:input => 'f_nome'} %>
-            <br>
-                <label>E-mail</label>
-                <%= select_tag :f_tipo_email,
-                    options_for_select(["Igual a", "Contém", "Começa com", "Termina com"]),
-                    :include_blank => false %>
-                <%= text_field_tag :f_email, params[:f_email] %>
-                <%= select_tag :f_clause_email,
-                    options_for_select([["e", " and "], ["ou", " or "]]),
-                    :include_blank => false, :data => {:input => 'f_email'} %>
-            <br>
-                <label>Idade</label>
-                <%= text_field_tag :f_idade, params[:f_idade] %>
-                <%= select_tag :f_tipo_idade,
-                    options_for_select(["=", "<", "<=", ">", ">="]),
-                    :include_blank => false %>
-                <%= select_tag :f_clause_idade,
-                    options_for_select([["e", " and "], ["ou", " or "]]),
-                    :include_blank => false, :data => {:input => 'f_idade'} %>
-            <br>
-                <label>Cargo</label>
-                <%= select_tag :f_tipo_cargo,
-                    options_for_select(["Igual a", "Contém", "Começa com", "Termina com"]),
-                    :include_blank => false %>
-                <%= text_field_tag :f_cargo, params[:f_cargo] %>
-                <%= select_tag :f_clause_cargo,
-                    options_for_select([["e", " and "], ["ou", " or "]]),
-                    :include_blank => false, :data => {:input => 'f_cargo'} %>
-            <br>
-                <label>Estado</label>
-                <%= select_tag :f_estado,
-                    options_from_collection_for_select(Estado.all, 'id', 'sigla'),
-                    :prompt => "Selecione o Estado" %>
-                <%= button_tag "Nova Segmentação", :name => nil,
-                    :id => "nova_segmentacao", :type => "button" %>
+        <div class="panel panel-default">
+          <!-- Default panel contents -->
+            <div class="panel-heading">Segmentar Contatos</div>
+            <div class="panel-body">
+                <%= form_tag contatos_path, :method => 'get',
+                    :id => "segmentacao_form", :class => "segmentacao-form" do %>
+                    <label>Nome</label>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <%= select_tag :f_tipo_nome,
+                                    options_for_select(["Igual a", "Contém", "Começa com", "Termina com"]),
+                                    :include_blank => false, :class => "form-control input-sm" %>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <%= text_field_tag :f_nome, params[:f_nome],
+                                    :class => "form-control input-sm" %>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <%= select_tag :f_clause_nome,
+                                options_for_select([["e", " and "], ["ou", " or "]]),
+                                :include_blank => false, :data => {:input => 'f_nome'},
+                                :class => "form-control input-sm" %>
+                        </div>
+                    </div>
+                    <label>E-mail</label>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <%= select_tag :f_tipo_email,
+                                    options_for_select(["Igual a", "Contém", "Começa com", "Termina com"]),
+                                    :include_blank => false, :class => "form-control input-sm" %>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <%= text_field_tag :f_email, params[:f_email],
+                                    :class => "form-control input-sm"  %>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="form-group">
+                                <%= select_tag :f_clause_email,
+                                    options_for_select([["e", " and "], ["ou", " or "]]),
+                                    :include_blank => false, :data => {:input => 'f_email'},
+                                    :class => "form-control input-sm"  %>
+                            </div>
+                        </div>
+                    </div>
+                    <label>Idade</label>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <%= text_field_tag :f_idade, params[:f_idade],
+                                    :class => "form-control input-sm" %>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="form-group">
+                                <%= select_tag :f_tipo_idade,
+                                    options_for_select(["=", "<", "<=", ">", ">="]),
+                                    :include_blank => false,
+                                    :class => "form-control input-sm" %>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="form-group">
+                                <%= select_tag :f_clause_idade,
+                                    options_for_select([["e", " and "], ["ou", " or "]]),
+                                    :include_blank => false, :data => {:input => 'f_idade'},
+                                    :class => "form-control input-sm" %>
+                            </div>
+                        </div>
+                    </div>
+                    <label>Cargo</label>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <%= select_tag :f_tipo_cargo,
+                                    options_for_select(["Igual a", "Contém", "Começa com", "Termina com"]),
+                                    :include_blank => false,
+                                    :class => "form-control input-sm" %>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <%= text_field_tag :f_cargo, params[:f_cargo],
+                                    :class => "form-control input-sm"  %>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="form-group">
+                                <%= select_tag :f_clause_cargo,
+                                    options_for_select([["e", " and "], ["ou", " or "]]),
+                                    :include_blank => false, :data => {:input => 'f_cargo'},
+                                    :class => "form-control input-sm"  %>
+                            </div>
+                        </div>
+                    </div>
+                    <label>Estado</label>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <%= select_tag :f_estado,
+                                    options_from_collection_for_select(Estado.all, 'id', 'sigla'),
+                                    :prompt => "Selecione o Estado",
+                                    :class => "form-control input-sm" %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <%= button_tag "Nova Segmentação", :name => nil,
+                            :id => "nova_segmentacao", :type => "button",
+                            :class => "btn btn-primary input-sm pull-right margin-right-10" %>
+                            <%
+                                @editar_hidden = "hidden"
+                                unless @historico_id.blank?
+                                    @editar_hidden = ""
+                                end
+                            %>
+                        <%= button_tag "Editar Segmentação", :name => nil,
+                            :id => "editar_segmentacao", :type => "button",
+                            :class => @editar_hidden + " btn btn-warning input-sm pull-right margin-right-10" %>
 
-                    <%
-                        @editar_hidden = "hidden"
-                        unless @historico_id.blank?
-                            @editar_hidden = ""
-                        end
-                    %>
+                        <%= button_tag "Limpar Formulário", :name => nil,
+                            :id => "remove_id_segmentacao", :type => "button",
+                            :class => "btn btn-danger input-sm pull-right margin-right-10" %>
 
-                <%= button_tag "Editar Segmentação", :name => nil,
-                    :id => "editar_segmentacao", :class => @editar_hidden %>
-                <span id="remove_id_segmentacao" class="glyphicon glyphicon-trash" aria-hidden="true" ></span>
-            </p>
-            <%= hidden_field_tag :historico_id, @historico_id %>
-        <% end %>
+                    </div>
+                    <%= hidden_field_tag :historico_id, @historico_id %>
+                <% end %>
+            </div>
+        </div>
+
     </div>
     <div class="col-lg-7">
         <div class="panel panel-default">
@@ -85,6 +162,9 @@
                           <th>Cargo</th>
                           <th></th>
                           <th>Estado</th>
+                          <th>
+                              Salvo/Atualizado
+                          </th>
                       </tr>
                   </thead>
                   <tbody>
@@ -96,96 +176,99 @@
                             end
                         %>
                           <tr class="item-segmentacao <%=@klass%>" data-id="<%=historico.id%>">
-                              <td data-tipo-nome="<%=historico.tipo_nome%>">
-                                  <% if historico.nome.present? %>
-                                    <%= historico.tipo_nome %>
+                              <td data-tipo-nome="<%=historico.f_tipo_nome%>">
+                                  <% if historico.f_nome.present? %>
+                                    <%= historico.f_tipo_nome %>
                                   <% else %>
                                       -
                                   <% end %>
                               </td>
-                              <td data-nome="<%=historico.nome%>">
-                                  <% if historico.nome.present? %>
-                                      <%= historico.nome %>
+                              <td data-nome="<%=historico.f_nome%>">
+                                  <% if historico.f_nome.present? %>
+                                      <%= historico.f_nome %>
                                   <% else %>
                                       -
                                   <% end %>
                               </td>
-                              <td data-clause-nome="<%=historico.clause_nome%>">
-                                  <% if historico.clause_nome == " and " %>
+                              <td data-clause-nome="<%=historico.f_clause_nome%>">
+                                  <% if historico.f_clause_nome == " and " %>
                                       E
-                                  <% elsif historico.clause_nome == " or "  %>
+                                  <% elsif historico.f_clause_nome == " or "  %>
                                       OU
                                   <% else %>
                                       -
                                   <% end %>
                               </td>
-                              <td data-tipo-email="<%=historico.tipo_email%>">
-                                  <% if historico.email.present? %>
-                                    <%= historico.tipo_email %>
+                              <td data-tipo-email="<%=historico.f_tipo_email%>">
+                                  <% if historico.f_email.present? %>
+                                    <%= historico.f_tipo_email %>
                                   <% else %>
                                       -
                                   <% end %>
                               </td>
-                              <td data-email="<%=historico.email%>">
-                                  <% if historico.email.present? %>
-                                    <%= historico.email %>
+                              <td data-email="<%=historico.f_email%>">
+                                  <% if historico.f_email.present? %>
+                                    <%= historico.f_email %>
                                   <% else %>
                                       -
                                   <% end %>
                               </td>
-                              <td data-clause-email="<%=historico.clause_email%>">
-                                  <% if historico.clause_email == " and " %>
+                              <td data-clause-email="<%=historico.f_clause_email%>">
+                                  <% if historico.f_clause_email == " and " %>
                                       E
-                                  <% elsif historico.clause_email == " or "  %>
+                                  <% elsif historico.f_clause_email == " or "  %>
                                       OU
                                   <% else %>
                                       -
                                   <% end %>
                               </td>
-                              <td data-tipo-idade="<%=historico.idade.nil? ? "" : historico.tipo_idade %>">
-                                  <%=historico.idade.nil? ? "-" : historico.tipo_idade %>
+                              <td data-tipo-idade="<%=historico.f_idade.nil? ? "" : historico.f_tipo_idade %>">
+                                  <%=historico.f_idade.nil? ? "-" : historico.f_tipo_idade %>
                               </td>
-                              <td data-idade="<%=historico.idade.nil? ? "" : historico.idade %>">
-                                 <%=historico.idade.nil? ? "-" : historico.idade %>
+                              <td data-idade="<%=historico.f_idade.nil? ? "" : historico.f_idade %>">
+                                 <%=historico.f_idade.nil? ? "-" : historico.f_idade %>
                               </td>
-                              <td data-clause-idade="<%=historico.clause_idade%>">
-                                  <% if historico.clause_idade == " and " %>
+                              <td data-clause-idade="<%=historico.f_clause_idade%>">
+                                  <% if historico.f_clause_idade == " and " %>
                                       E
-                                  <% elsif historico.clause_idade == " or "  %>
+                                  <% elsif historico.f_clause_idade == " or "  %>
                                       OU
                                   <% else %>
                                       -
                                   <% end %>
                               </td>
-                              <td data-tipo-cargo="<%=historico.tipo_cargo%>">
-                                  <% if historico.cargo.present? %>
-                                    <%= historico.tipo_cargo %>
+                              <td data-tipo-cargo="<%=historico.f_tipo_cargo%>">
+                                  <% if historico.f_cargo.present? %>
+                                    <%= historico.f_tipo_cargo %>
                                   <% else %>
                                       -
                                   <% end %>
                               </td>
-                              <td data-cargo="<%=historico.cargo%>">
-                                  <% if historico.cargo.present? %>
-                                    <%= historico.cargo %>
+                              <td data-cargo="<%=historico.f_cargo%>">
+                                  <% if historico.f_cargo.present? %>
+                                    <%= historico.f_cargo %>
                                   <% else %>
                                       -
                                   <% end %>
                               </td>
-                              <td data-clause-cargo="<%=historico.clause_cargo%>">
-                                  <% if historico.clause_cargo == " and " %>
+                              <td data-clause-cargo="<%=historico.f_clause_cargo%>">
+                                  <% if historico.f_clause_cargo == " and " %>
                                       E
-                                  <% elsif historico.clause_cargo == " or "  %>
+                                  <% elsif historico.f_clause_cargo == " or "  %>
                                       OU
                                   <% else %>
                                       -
                                   <% end %>
                               </td>
-                              <td data-estado="<%=historico.estado%>">
-                                  <% if historico.estado.present? %>
-                                      <%= historico.estado %>
+                              <td data-estado="<%=historico.f_estado%>">
+                                  <% if historico.f_estado.present? %>
+                                      <%= historico.f_estado %>
                                   <% else %>
                                       -
                                   <% end %>
+                              </td>
+                              <td>
+                                  <%=historico.updated_at.strftime("%d/%m/%Y %X")%>
                               </td>
                           </tr>
                       <% end %>
@@ -202,4 +285,4 @@
 
 <br>
 
-<%= link_to 'New Contato', new_contato_path %>
+<%= link_to 'Novo Contato', new_contato_path %>

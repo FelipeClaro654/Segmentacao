@@ -31,21 +31,21 @@ ActiveRecord::Schema.define(version: 20161110223746) do
   end
 
   create_table "historico_segmentacaos", force: :cascade do |t|
-    t.string   "nome"
-    t.string   "tipo_nome"
-    t.string   "clause_nome"
-    t.string   "email"
-    t.string   "tipo_email"
-    t.string   "clause_email"
-    t.integer  "idade"
-    t.string   "tipo_idade"
-    t.string   "clause_idade"
-    t.string   "cargo"
-    t.string   "tipo_cargo"
-    t.string   "clause_cargo"
-    t.string   "estado"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.string   "f_nome"
+    t.string   "f_tipo_nome"
+    t.string   "f_clause_nome"
+    t.string   "f_email"
+    t.string   "f_tipo_email"
+    t.string   "f_clause_email"
+    t.integer  "f_idade"
+    t.string   "f_tipo_idade"
+    t.string   "f_clause_idade"
+    t.string   "f_cargo"
+    t.string   "f_tipo_cargo"
+    t.string   "f_clause_cargo"
+    t.string   "f_estado"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
 end

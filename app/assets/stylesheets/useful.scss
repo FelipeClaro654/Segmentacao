@@ -1,0 +1,15 @@
+.cursor-pointer{
+    cursor: pointer;
+}
+
+@for $i from 1 through 10 {
+    .margin-left-#{$i} {
+        margin-left: #{$i}px;
+    }
+}
+
+@for $i from 1 through 10 {
+    .margin-right-#{$i} {
+        margin-right: #{$i}px;
+    }
+}

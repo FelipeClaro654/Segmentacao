@@ -20,9 +20,10 @@
                             <td><%= contato.idade %></td>
                             <td><%= contato.estado.sigla %></td>
                             <td><%= contato.cargo %></td>
-                            <td><%= link_to 'Show', contato %></td>
-                            <td><%= link_to 'Edit', edit_contato_path(contato) %></td>
-                            <td><%= link_to 'Destroy', contato, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                            <td><%= link_to 'Detalhes', contato %></td>
+                            <td><%= link_to 'Editar', edit_contato_path(contato) %></td>
+                            <td><%= link_to 'Excluir', contato, method: :delete,
+                                    data: { confirm: 'Tem certeza que deseja exluir este Contato?' } %></td>
                         </tr>
                     <% end %>
                 <% else %>
