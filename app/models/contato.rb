@@ -46,25 +46,6 @@ class Contato < ApplicationRecord
 
         params[:f_clause_email].nil? ? email += "" : email += params[:f_clause_email]
 
-        if params[:f_cargo].present?
-
-            case params[:f_tipo_cargo]
-            when "Igual a"
-                cargo = " cargo = '#{params[:f_cargo]}'"
-            when "Contém"
-                cargo = " cargo LIKE '%#{params[:f_cargo]}%'"
-            when "Começa com"
-                cargo = " cargo LIKE '#{params[:f_cargo]}%'"
-            else
-                cargo = " cargo LIKE '%#{params[:f_cargo]}'"
-            end
-        else
-            params[:f_clause_cargo] = ""
-        end
-
-        params[:f_clause_cargo].nil? ? cargo += "" : cargo += params[:f_clause_cargo]
-
-
         if params[:f_idade].present?
             case params[:f_tipo_idade]
             when "="
@@ -85,11 +66,28 @@ class Contato < ApplicationRecord
 
         params[:f_clause_idade].nil? ? idade += "" : idade += params[:f_clause_idade]
 
+        if params[:f_cargo].present?
+
+            case params[:f_tipo_cargo]
+            when "Igual a"
+                cargo = " cargo = '#{params[:f_cargo]}'"
+            when "Contém"
+                cargo = " cargo LIKE '%#{params[:f_cargo]}%'"
+            when "Começa com"
+                cargo = " cargo LIKE '#{params[:f_cargo]}%'"
+            else
+                cargo = " cargo LIKE '%#{params[:f_cargo]}'"
+            end
+        else
+            params[:f_clause_cargo] = ""
+        end
+        params[:f_clause_cargo].nil? ? cargo += "" : cargo += params[:f_clause_cargo]
+
         if params[:f_estado].present?
             estado = "estado_id = #{params[:f_idade]}"
         end
 
-        segmentacao = nome + email + cargo + idade + estado
+        segmentacao = nome + email + idade + cargo + estado
         byebug
         if params[:historico_id].blank?
             salva_segmentacao(params)
@@ -116,6 +114,7 @@ class Contato < ApplicationRecord
                                                             estado: params[:f_estado]
                                                         )
         @historico_segmentacao.save
+        params[:historico_id] = @historico_segmentacao.id
     end
 
     def self.editar_segmentacao(params)

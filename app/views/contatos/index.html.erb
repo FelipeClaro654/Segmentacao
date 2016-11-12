@@ -97,7 +97,11 @@
                         %>
                           <tr class="item-segmentacao <%=@klass%>" data-id="<%=historico.id%>">
                               <td data-tipo-nome="<%=historico.tipo_nome%>">
-                                  <%= historico.tipo_nome %>
+                                  <% if historico.nome.present? %>
+                                    <%= historico.tipo_nome %>
+                                  <% else %>
+                                      -
+                                  <% end %>
                               </td>
                               <td data-nome="<%=historico.nome%>">
                                   <% if historico.nome.present? %>
@@ -116,10 +120,18 @@
                                   <% end %>
                               </td>
                               <td data-tipo-email="<%=historico.tipo_email%>">
-                                  <%= historico.tipo_email %>
+                                  <% if historico.email.present? %>
+                                    <%= historico.tipo_email %>
+                                  <% else %>
+                                      -
+                                  <% end %>
                               </td>
                               <td data-email="<%=historico.email%>">
-                                  <%= historico.email %>
+                                  <% if historico.email.present? %>
+                                    <%= historico.email %>
+                                  <% else %>
+                                      -
+                                  <% end %>
                               </td>
                               <td data-clause-email="<%=historico.clause_email%>">
                                   <% if historico.clause_email == " and " %>
@@ -133,8 +145,8 @@
                               <td data-tipo-idade="<%=historico.idade.nil? ? "" : historico.tipo_idade %>">
                                   <%=historico.idade.nil? ? "-" : historico.tipo_idade %>
                               </td>
-                              <td data-idade="<%=historico.idade.nil? ? "" : historico.tipo_idade %>">
-                                 <%=historico.idade.nil? ? "-" : historico.tipo_idade %>
+                              <td data-idade="<%=historico.idade.nil? ? "" : historico.idade %>">
+                                 <%=historico.idade.nil? ? "-" : historico.idade %>
                               </td>
                               <td data-clause-idade="<%=historico.clause_idade%>">
                                   <% if historico.clause_idade == " and " %>
@@ -146,10 +158,18 @@
                                   <% end %>
                               </td>
                               <td data-tipo-cargo="<%=historico.tipo_cargo%>">
-                                  <%= historico.tipo_cargo %>
+                                  <% if historico.cargo.present? %>
+                                    <%= historico.tipo_cargo %>
+                                  <% else %>
+                                      -
+                                  <% end %>
                               </td>
                               <td data-cargo="<%=historico.cargo%>">
-                                  <%= historico.cargo %>
+                                  <% if historico.cargo.present? %>
+                                    <%= historico.cargo %>
+                                  <% else %>
+                                      -
+                                  <% end %>
                               </td>
                               <td data-clause-cargo="<%=historico.clause_cargo%>">
                                   <% if historico.clause_cargo == " and " %>

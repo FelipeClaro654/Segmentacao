@@ -9,16 +9,19 @@ $(function () {
                     inputs.push(this);
                 }
             });
-
+            debugger;
             if(inputs.length > 0){
                 var input_id = $(inputs[inputs.length-1])[0].id;
+                if($("#f_estado").val() != ""){
+                    return true;
+                }
                 $("[data-input='"+input_id+"']").val("");
                 return true;
             }
             return false;
         },
         render_lista: function () {
-                setInterval(function () {
+                /*setInterval(function () {
 
                 if(!Contatos.checar_ultimo_preenchido()){
                     return false;
@@ -46,7 +49,7 @@ $(function () {
                 .done(function(result) {
                     $("#lista_contatos").html(result);
                 })
-            }, 1000);
+            }, 1000);*/
         }
     }
 
@@ -87,7 +90,6 @@ $(function () {
     $(document).on("click","#nova_segmentacao", function (e) {
         e.preventDefault();
         $("#historico_id").val("");
-        debugger;
         if(Contatos.checar_ultimo_preenchido()){
             $("#segmentacao_form").submit();
         }
@@ -103,6 +105,5 @@ $(function () {
 
 $(document).on('ready page:load', function() {
     $(".item-segmentacao.bg-info").trigger('click');
-
     Contatos.render_lista();
 });

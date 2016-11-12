@@ -35,7 +35,6 @@ class ContatosController < ApplicationController
             params[:f_estado].present?
 
             @contatos = Contato.search(params)
-            @historico_id = ""
             if params[:historico_id].present?
                 @historico_id = params[:historico_id]
             end
