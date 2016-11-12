@@ -4,7 +4,7 @@ $(function () {
         checar_ultimo_preenchido: function () {
             var inputs = [];
 
-            $.each($("p input"), function(){
+            $.each($("input[type='text']"), function(){
                 if(this.value != ""){
                     inputs.push(this);
                 }
@@ -74,6 +74,7 @@ $(function () {
     $(document).on("click","#nova_segmentacao", function (e) {
         e.preventDefault();
         $("#historico_id").val("");
+        debugger;
         if(Contatos.checar_ultimo_preenchido()){
             $("#segmentacao_form").submit();
         }
@@ -90,6 +91,9 @@ $(function () {
 $(document).on('ready page:load', function() {
     $(".item-segmentacao.bg-info").trigger('click');
 
+    if($("#historico_id").length === 0 ){
+        return false;
+    }
     setInterval(function () {
         Contatos.render_lista();
     }, 5000);

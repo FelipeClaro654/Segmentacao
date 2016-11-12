@@ -4,7 +4,6 @@ class CreateContatos < ActiveRecord::Migration[5.0]
       t.string :nome
       t.string :email
       t.integer :idade
-      t.references :estado, foreign_key: true
       t.string :cargo
 
       t.timestamps
