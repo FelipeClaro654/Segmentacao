@@ -24,10 +24,10 @@ RSpec.describe Contato, type: :model do
 
         it "Contato válido?" do
             contato = Contato.new
-            contato.nome = "Ryu"
-            contato.idade = 22
-            contato.cargo = "Lutador"
-            contato.estado_id = "SP"
+            contato.nome = ""
+            contato.idade = 0
+            contato.cargo = ""
+            contato.estado_id = ""
             expect(contato.valid?).to be_falsey
         end
     end
