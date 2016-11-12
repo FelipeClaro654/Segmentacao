@@ -4,6 +4,7 @@ class Contato < ApplicationRecord
     validates :email, uniqueness: true, presence: true
     validates :idade, presence: true
     validates :cargo, presence: true
+    validates :estado, presence: true
 
     def self.search(params)
         query = retorna_query(params)

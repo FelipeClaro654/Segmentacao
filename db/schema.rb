@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 20161112153550) do
     t.string   "f_cargo"
     t.string   "f_tipo_cargo"
     t.string   "f_clause_cargo"
-    t.string   "f_estado"
+    t.integer  "f_estado"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
   end

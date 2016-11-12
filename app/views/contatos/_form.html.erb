@@ -30,7 +30,7 @@
       <%= f.label :estado_id %>
       <%= f.collection_select :estado_id,
       Estado.all, :id, :sigla,
-      {:include_blank => "Selecione o Estado"}, {:class => ' '} %>
+      {:include_blank => false}%>
   </div>
 
   <div class="field">

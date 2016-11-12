@@ -39,6 +39,8 @@ group :development, :test do
   gem 'byebug', platform: :mri
   gem 'guard'
   gem 'guard-livereload', '~> 2.5', require: false
+  gem 'rspec-rails', '~> 3.5'
+  gem 'guard-rspec', require: false
 end
 
 group :development do
