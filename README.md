@@ -22,4 +22,5 @@ Foram utilizados:
   Utilização do Sqlite para desenvolvimento e testes e Postgresql em produção. Rodar rake db:create para criar o banco,     rake db:migrate para rodar as migrations e rake db:seed para inserir as informações de Estado
 - Heroku:
   Aplicação se encontra na url https://peaceful-river-17285.herokuapp.com/
-
+  
+TODO: finalizar os testes unitários.
