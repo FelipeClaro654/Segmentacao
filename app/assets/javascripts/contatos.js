@@ -88,7 +88,8 @@ $(function () {
     });
 });
 
-$(document).on('ready page:load', function() {
+$(document).on('turbolinks:load', function() {
+    debugger;
     $(".item-segmentacao.bg-info").trigger('click');
 
     if($("#historico_id").length === 0 ){
