@@ -11,13 +11,13 @@ A lista, quando segmentada, estará sempre sendo atualizada automaticamente.
 Foram utilizados:
 - Ruby 2.3.1p112
 - Gems:
-  -bootstrap-sass: framwork visual para estilização da aplicação
-  -jquery-turbolinks: facilita o uso do Turbolinks em relação aos bindings do jquery
-  -pg: utilizar Postgresql no lugar do Sqlite nativo
-  -guard: vigia mudanças nos arquivos
-  -guard-livereload: recarrega a página no browser quando houver alguma mudança na aplicação
-  -rspec-rails: realização de testes unitários
-  -guard-rspec: roda os testes quando captar alterações nos mesmos 
+- bootstrap-sass: framwork visual para estilização da aplicação
+- jquery-turbolinks: facilita o uso do Turbolinks em relação aos bindings do jquery
+- pg: utilizar Postgresql no lugar do Sqlite nativo
+- guard: vigia mudanças nos arquivos
+- guard-livereload: recarrega a página no browser quando houver alguma mudança na aplicação
+- rspec-rails: realização de testes unitários
+- guard-rspec: roda os testes quando captar alterações nos mesmos 
 - Banco de dados:
   Utilização do Sqlite para desenvolvimento e testes e Postgresql em produção. Rodar rake db:create para criar o banco,     rake db:migrate para rodar as migrations e rake db:seed para inserir as informações de Estado
 - Heroku:
